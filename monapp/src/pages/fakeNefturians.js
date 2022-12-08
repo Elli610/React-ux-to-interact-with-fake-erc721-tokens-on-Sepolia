@@ -10,7 +10,12 @@ const contractAddress = '0x9bAADf70BD9369F54901CF3Ee1b3c63b60F4F0ED'; // contrac
 
 const fakeNefturiansContract = new ethers.Contract(contractAddress, fakeNefturiansAbi['abi'], provider);
 
-
+function buyFakeNefturians() {
+    // interact with buyAToken function and send 0.105 ETH to the contract
+    const signer = provider.getSigner();
+    const fakeNefturiansContractWithSigner = fakeNefturiansContract.connect(signer);
+    fakeNefturiansContractWithSigner.buyAToken({value: ethers.utils.parseEther("0.105")});    
+}
 
 
 
@@ -22,18 +27,15 @@ export default function FakeNefturiansActions() {
     useEffect(() => {
         fakeNefturiansContract.tokenPrice().then(setMinPrice);
     }, [minPrice]);
-
+    const priceMini = minPrice/1000000000000000000;
     if(!minPrice) return(<div>Loading...</div>)
 
-    
     return (
         <div>
             <h1>Fake Nefturians</h1>
-            <p>Minimum price: {(minPrice/1000000000000000000).toString()} ETH // The buying price have to be greater</p>
-            <text type="number" id="price" placeholder="Price"></text>
-            <button onClick={buyFakeNefturians(price)}>Buy Fake Nefturians for</button>
+            <p>Minimum price: {priceMini.toString()} ETH /// The buying price have to be greater</p>
+            <button onClick={buyFakeNefturians}>Buy Fake Nefturians for 0.105 ETH </button>
         </div>
-
     )
 
 }
