@@ -1,5 +1,6 @@
 import { ethers } from "ethers";
 import React, {  useEffect,  useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 //import fakeNefturiansAbi
 const fakeNefturiansAbi = require('./fakeNefturiansAbi.json') 
@@ -17,6 +18,32 @@ function buyFakeNefturians() {
     fakeNefturiansContractWithSigner.buyAToken({value: ethers.utils.parseEther("0.105")});    
 }
 
+function GetAddress() {
+    
+    const [value, setValue] = useState('');
+    const navigate = useNavigate();
+    const HandleClick = () => {
+  
+        const address = document.getElementById('input-field').value;     // Get the value of the input field
+        // check if the field is empty
+        if (address === '') {
+            alert('Please enter an address');
+            return;
+        }
+        const url =  address.toString();        
+        navigate(url);        
+    };
+  
+    return (
+      <div>
+        <p>Enter an ethereum address to see its fake Nefturians and their attributes</p>
+        <input id="input-field" type="text" />
+        <button onClick={HandleClick}>See the NFTs</button>
+        
+      </div>
+    );
+  }
+
 
 export default function FakeNefturiansActions() {
    
@@ -33,6 +60,7 @@ export default function FakeNefturiansActions() {
             <h1>Fake Nefturians</h1>
             <p>Minimum price: {priceMini.toString()} ETH /// The buying price have to be greater</p>
             <button onClick={buyFakeNefturians}>Buy Fake Nefturians for 0.105 ETH </button>
+            <GetAddress />
         </div>
     )
 

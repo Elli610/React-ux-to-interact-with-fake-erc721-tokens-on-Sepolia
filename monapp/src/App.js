@@ -1,7 +1,8 @@
 import React from "react";
-import ReactDOM from "react-dom/client";
+//import ReactDOM from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Layout from "./pages/Layout.js";
+import Intro from "./pages/Intro.js";
 import NoPages from "./pages/NoPages.js";
 import ChainInfo from './pages/Chain-info.js';
 import FakeBaycActions from './pages/FakeBayc.js';
@@ -18,10 +19,10 @@ export default function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Layout />}>
-          <Route index element={<ChainInfo />} />
+          <Route index element={<Intro />} />
           <Route path="chain-info" element={<ChainInfo />} />
           <Route path="fakebayc" element={<FakeBaycActions />} />
-          <Route path="FakeBayc/:tokenID" element={<FakeBaycTokenInfo />} />
+          <Route path="fakeBayc/:tokenID" element={<FakeBaycTokenInfo />} />
           <Route path="fakeNefturians/:address" element={<FakeNefturiansInfos />} />
           <Route path="fakeNefturians" element={<FakeNefturiansActions />} />
           <Route path="fakeMeebits" element={<FakeMeebitsActions />} />

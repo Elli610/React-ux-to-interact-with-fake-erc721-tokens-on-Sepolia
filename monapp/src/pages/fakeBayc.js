@@ -1,6 +1,6 @@
 import { ethers } from "ethers";
 import React, {  useEffect,  useState } from 'react';
-import FakeBaycTokenInfo from "./FakeBaycTokenInfo";
+import { useNavigate } from 'react-router-dom';
 //import fakeBaycAbi 
 const fakeBaycAbi = require('./fakeBaycAbi.json')
 
@@ -34,8 +34,8 @@ function buttonClaimFakeBayc() {
 function GetId() {
     
     const [value, setValue] = useState('');
-  
-    const handleClick = () => {
+    const navigate = useNavigate();
+    const HandleClick = () => {
   
         const tokenId = document.getElementById('input-field').value;     // Get the value of the input field
         // check if the value is a number
@@ -48,15 +48,16 @@ function GetId() {
             alert('Please enter a valid token id');
             return;
         }
-        const url = "./FakeBaycTokenInfo/:" + tokenId;
-        
-        
+        const url =  tokenId.toString();        
+        navigate(url);        
     };
   
     return (
       <div>
+        <p>Enter a token id to display the nft and its attributes</p>
         <input id="input-field" type="text" />
-        <button onClick={handleClick}>Display NFT</button>
+        <button onClick={HandleClick}>Display NFT</button>
+        
       </div>
     );
   }

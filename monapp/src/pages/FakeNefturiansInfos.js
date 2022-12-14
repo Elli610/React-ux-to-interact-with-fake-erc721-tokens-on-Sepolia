@@ -12,12 +12,6 @@ const contractAddress = '0x9bAADf70BD9369F54901CF3Ee1b3c63b60F4F0ED'; // contrac
 const fakeNefturiansContract = new ethers.Contract(contractAddress, fakeNefturiansAbi['abi'], provider);
 
 
-// get balance of address
-async function getBalance(address) {
-    const balance = await fakeNefturiansContract.balanceOf(address);
-    return balance;
-}
-
 function getTokenIds(address, balance) {
     // get the tokenIds
     const tokenIds = [];
@@ -49,49 +43,16 @@ async function getJsonFromUri(uriUrl){
     return (await fetch(uriUrl).then(res => res.json()));
 }
 
-// display the tokens
-    
- 
-  
-
-
-class TokenInfo extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-        id: 0,
-        name: '',
-        imageUrl: '',
-        attributes: '',
-    };
-  }
-
-  async componentDidMount(id, name, imageUrl, attributes) {
-    // Fetch the NFT with the given ID from the blockchain or database
-    this.setState({
-        id: id,
-        name: name,
-        imageUrl: imageUrl,
-        attributes: attributes,
-    });
-  }
-
-  render() {
-    return (
-      <div>
-        <img src={this.state.imageUrl} alt={this.state.name} />
-        <p>Name: {this.state.name}</p>
-        <p>Attributes: {this.state.attributes.join(', ')}</p>
-      </div>
-    );
-  }
+async function getName(tokenId) {
+    // getUri
+    const uri = await getUri(tokenId);
+    // get json from uri
+    const json = await getJsonFromUri(uri);
+    console.log("json", json.name);
+    return json.name.toString();
 }
 
-
- 
-  
-
-
+// display the tokens
 
 
 
@@ -108,24 +69,12 @@ export default function FakeNeftiriansInfos(){
     //console.log("balance", balance );
 
     // get the tokenIds
-    const tokenIds = getTokenIds(address, parseInt(balance));
+    //const tokenIds = getTokenIds(address, parseInt(balance));
     // console.log("tokenIds", tokenIds);
 
-    if(!tokenIds || !balance) return(<div><p>Loading...</p></div>);    
+    if(!balance) return(<div><p>Loading...</p></div>);    
 
-    const TokenInfos = tokenIds.map(async (tokenId) => {
 
-        const uri = await getUri(tokenId);
-        //console.log("uri", uri);
-        const json = await getJsonFromUri(uri);
-        console.log("json", json.name);
-        return (
-            <div>
-                <p>id = {tokenId.toString()}</p>
-                <p>name = {json.name.toString()}</p>
-            </div>
-        );
-    });
 
 
     return(
@@ -137,7 +86,7 @@ export default function FakeNeftiriansInfos(){
                 <p>Number of tokens: {balance.toString()}</p>
             </div>
             <div>
-               <TokenInfos />
+               <p>{getName(1)}</p>
             </div>
         </div>
     )
