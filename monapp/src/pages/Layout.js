@@ -15,10 +15,10 @@ const Layout = () => {
             <Link to="/fakeBayc">Fake BAYC</Link>
           </li>
           <li>
-            <Link to="/FakeBaycTokenInfo">Fake BAYC Token Info</Link>
+            <Link to="/fakeNefturians">Fake Nefturians</Link>
           </li>
           <li>
-            <Link to="/fakeNefturians">Fake Nefturians</Link>
+            <Link to="/fakeMeebits">Fake Meebits</Link>
           </li>
         </ul>
       </nav>

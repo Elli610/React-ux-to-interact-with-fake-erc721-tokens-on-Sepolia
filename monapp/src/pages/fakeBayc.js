@@ -1,5 +1,6 @@
 import { ethers } from "ethers";
 import React, {  useEffect,  useState } from 'react';
+import FakeBaycTokenInfo from "./FakeBaycTokenInfo";
 //import fakeBaycAbi 
 const fakeBaycAbi = require('./fakeBaycAbi.json')
 
@@ -10,9 +11,16 @@ const contractAddress = '0x1dA89342716B14602664626CD3482b47D5C2005E'; // contrac
 const fakeBaycContract = new ethers.Contract(contractAddress, fakeBaycAbi['abi'], provider);
 
 function claimFakeBayc() {
-    const signer = provider.getSigner();
-    const fakeBaycContractWithSigner = fakeBaycContract.connect(signer);
-    fakeBaycContractWithSigner.claimAToken();
+    try{
+        const signer = provider.getSigner();
+        const fakeBaycContractWithSigner = fakeBaycContract.connect(signer);
+        fakeBaycContractWithSigner.claimAToken();
+    }catch(err){
+        console.log(err);
+        if(err.code === 4001){
+            alert("You need to connect your wallet to claim a Fake BAYC")
+        }
+    }
 }
 
 function buttonClaimFakeBayc() {
@@ -20,6 +28,39 @@ function buttonClaimFakeBayc() {
         <button onClick={claimFakeBayc}>Claim Fake BAYC for free !!</button>
     )
 }
+
+// display token infos
+
+function GetId() {
+    
+    const [value, setValue] = useState('');
+  
+    const handleClick = () => {
+  
+        const tokenId = document.getElementById('input-field').value;     // Get the value of the input field
+        // check if the value is a number
+        if (isNaN(tokenId)) {
+            alert('Please enter a number');
+            return;
+        }
+        // check if the token id is valid
+        if (tokenId < 0) {
+            alert('Please enter a valid token id');
+            return;
+        }
+        const url = "./FakeBaycTokenInfo/:" + tokenId;
+        
+        
+    };
+  
+    return (
+      <div>
+        <input id="input-field" type="text" />
+        <button onClick={handleClick}>Display NFT</button>
+      </div>
+    );
+  }
+
 
 export default function FakeBaycActions() {
 
@@ -66,7 +107,7 @@ export default function FakeBaycActions() {
                     <p>Tokens owned by {address}: 0 {symbol}</p>
                     </div>
                     <div>{buttonClaimFakeBayc()}</div>
-
+                    <GetId />
                 </div>
             )
         }
@@ -80,6 +121,9 @@ export default function FakeBaycActions() {
                     <p>Tokens owned by {address}: {tokensOwned.toString()}</p>
                     </div>
                     <div>{buttonClaimFakeBayc()}</div>
+                    
+                    <GetId />
+                    
                 </div>
             )
         }

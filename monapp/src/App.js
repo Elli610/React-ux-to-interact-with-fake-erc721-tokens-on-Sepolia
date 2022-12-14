@@ -7,6 +7,8 @@ import ChainInfo from './pages/Chain-info.js';
 import FakeBaycActions from './pages/FakeBayc.js';
 import FakeBaycTokenInfo from './pages/FakeBaycTokenInfo.js';
 import FakeNefturiansActions from './pages/FakeNefturians.js';
+import FakeNefturiansInfos from './pages/FakeNefturiansInfos.js';
+import FakeMeebitsActions from './pages/FakeMeebits.js';
 
 
 
@@ -17,10 +19,12 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<ChainInfo />} />
-          <Route path="fakebayc" element={<FakeBaycActions />} />
-          <Route path="FakeBaycTokenInfo" element={<FakeBaycTokenInfo />} />
           <Route path="chain-info" element={<ChainInfo />} />
+          <Route path="fakebayc" element={<FakeBaycActions />} />
+          <Route path="FakeBayc/:tokenID" element={<FakeBaycTokenInfo />} />
+          <Route path="fakeNefturians/:address" element={<FakeNefturiansInfos />} />
           <Route path="fakeNefturians" element={<FakeNefturiansActions />} />
+          <Route path="fakeMeebits" element={<FakeMeebitsActions />} />
           <Route path="*" element={<NoPages />} />
         </Route>
       </Routes>

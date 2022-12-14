@@ -18,8 +18,6 @@ function buyFakeNefturians() {
 }
 
 
-
-
 export default function FakeNefturiansActions() {
    
     // get minimum token price 

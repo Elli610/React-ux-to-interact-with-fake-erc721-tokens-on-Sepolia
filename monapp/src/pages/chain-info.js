@@ -68,6 +68,7 @@ export default function ChainInfo() {
 
     return (
         <div>
+          <h1>Chain Info</h1>
           <p>Account: {address}</p>
           <p>Network: {network['name']} id = {network['chainId']}</p>
           <p>Balance: {balance} ETH</p>
@@ -77,6 +78,7 @@ export default function ChainInfo() {
     } else {
       return( 
         <div>
+          <h1>Chain Info</h1>
           <p>Please connect to the Sepolia network and refresh.</p>
           </div>
       )
